@@ -5,9 +5,10 @@ img {
 
 .navlink {
     margin: auto;
+    padding-right: 20px !important;
 }
 
 .navBrand{
-    margin: auto;
-    padding-right: 40px;
+    margin: auto !important;
+    padding-right: 10px;
 }

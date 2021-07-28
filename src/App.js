@@ -13,8 +13,8 @@ import HomePage from "./components/OverviewPages/HomePage";
 const App = () => {
   const dispatch = useDispatch();
 
-  dispatch(fetchPublicRepos())
-  dispatch(fetchPersonalRepos())
+  dispatch(fetchPublicRepos());
+  dispatch(fetchPersonalRepos());
 
   return (
     <Router>
@@ -33,54 +33,6 @@ const App = () => {
       </Switch>
     </Router>
   );
-
 }
-
-
-// class App extends Component {
-//   state = {
-//     publicRepos: null,
-//     personalRepos: null,
-//   }
-
-//   componentDidMount() {
-//     fetch('https://api.github.com/repositories')
-//       .then(res => res.json())
-//       .then(publicRepos => {
-//         this.setState({ publicRepos })
-//       })
-
-//     fetch('https://api.github.com/user/repos?access_token=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')
-//       .then(res => res.json())
-//       .then(personalRepos => {
-//         this.setState({ personalRepos })
-//       })
-//   }
-
-
-//   render() {
-//     const { publicRepos, personalRepos } = this.state;
-
-//     return (
-//       <Provider store={store}>
-//         <Router>
-//           <NavigationBar />
-//           <Switch>
-//             <Route exact path="/">
-//               <HomePage />
-//             </Route>
-//             <Route path="/public">
-//               <PublicOverviewPage repos={publicRepos} />
-//             </Route>
-//             <Route path="/personal" >
-//               <PersonalOverviewPage repos={personalRepos} />
-//             </Route>
-//             <Route path="/repos" component={RepositoryDetailPage} />
-//           </Switch>
-//         </Router>
-//         </Provider>
-//     );
-//   }
-// }
 
 export default App;

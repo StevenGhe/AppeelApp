@@ -39,6 +39,20 @@ const fetchPersonalReposFail = error => {
     }
 }
 
+export const setFavoriteRepo = id => {
+    return {
+        type: act.SET_FAVORITE_REPO,
+        payload: id
+    }
+}
+
+export const delFavoriteRepo = id => {
+    return {
+        type: act.DEL_FAVORITE_REPO,
+        payload: id
+    }
+}
+
 //Thunk
 export const fetchPublicRepos = () => {
     return function (dispatch) {

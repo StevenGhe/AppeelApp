@@ -13,7 +13,7 @@ const CommitCard = (props) => {
                 <Avatar alt={"Profile picture" + commitAuthor} src={ownerProfilePicture} />
             </ListItemAvatar>
             <ListItemText
-                primary={commitName}
+                primary={commitAuthor}
                 secondary={
                     <React.Fragment>
                         <Typography
@@ -21,12 +21,11 @@ const CommitCard = (props) => {
                             variant="body2"
                             color="textPrimary"
                         >
-                            {commitAuthor}{' '}
+                            {commitName}{' '}
                         </Typography>
                         {commitMessage}
                     </React.Fragment>
-                }
-            />
+                }/>
         </ListItem>
     );
 }

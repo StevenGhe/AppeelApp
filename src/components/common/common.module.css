@@ -1,3 +1,24 @@
-button {
+.button {
     float: left;
+}
+
+.repoCard{
+    width: 75% !important;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.repoCard:hover {
+    background: #efefef;
+}
+
+
+.star {
+    margin: 15px 0 0 0;
+    min-width: 60px;
+}
+
+.favoriteStar {
+    margin: 15px 0 0 0;
+    min-width: 60px;
+    color: orange;
 }

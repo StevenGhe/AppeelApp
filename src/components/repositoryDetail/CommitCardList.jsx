@@ -6,7 +6,7 @@ import CommitCard from "./CommitCard";
 import styles from './repositoryDetail.module.css'
 
 import { useDispatch, useSelector } from "react-redux";
-import { setCommitFilter } from "../../redux/commit/commitActions";
+import { setCommitFilter } from "../../redux";
 
 const CommitCardList = () => {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const CommitCardList = () => {
 
         return (commAuthor.indexOf(commitFilterLowercase) !== -1
             || commMessage.indexOf(commitFilterLowercase) !== -1);
-    })
+    });
 
     return loading ? (
         <div className={styles.progressLoader}>
@@ -32,29 +32,32 @@ const CommitCardList = () => {
         </div>
     ) : error ? (
         <h2> Error: {error} </h2>
-    ) : commits && commits.length > 0 ? (
+    ) : commits ? (
         <React.Fragment>
-            <Form>
+            <Form onSubmit={(event) => { event.preventDefault() }}>
                 <Form.Group>
                     <Form.Control
                         type="text"
                         className={styles.form}
-                        placeholder="Filter commits on description &amp; name"
+                        placeholder="Filter commits"
                         onChange={(event) => dispatch(setCommitFilter(event.target.value))} />
                 </Form.Group>
             </Form>
-            <List>
-                {(
-                    filteredCommits.map(commit => (
-                        <CommitCard key={commit.node_id} commit={commit} alignItems="flex-start" />
-                    ))
-                )}
-            </List >
+            {filteredCommits.length > 0 ? (
+                <List>
+                    {(
+                        filteredCommits.map(commit => (
+                            <CommitCard key={commit.node_id} commit={commit} alignItems="flex-start" />
+                        ))
+                    )}
+                </List >
+            ) : (
+                <h2>No commit author or description matches filter.</h2>
+            )}
         </React.Fragment>
     ) : (
-        <h2>No commits found.</h2>
-    )
-
+        <h2>No commits found for this repository.</h2>
+    );
 }
 
 export default CommitCardList;

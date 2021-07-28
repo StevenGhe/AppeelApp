@@ -13,9 +13,15 @@ const RepoCardList = props => {
     ) : (repos && repos.length > 0) ? (
         <List>
             {(
-                repos.map(repo => (
-                    <RepoCard key={repo.node_id} repo={repo} alignItems="flex-start"></RepoCard>
-                ))
+                repos.filter(repo => repo.favorited)
+                    .map(repo => (
+                        <RepoCard key={repo.node_id} repo={repo}></RepoCard>
+                    ))
+            )}{(
+                repos.filter(repo => !repo.favorited)
+                    .map(repo => (
+                        <RepoCard key={repo.node_id} repo={repo}></RepoCard>
+                    ))
             )}
         </List >
     ) : (
