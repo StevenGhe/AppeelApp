@@ -1,66 +1,51 @@
-import React, { Component } from "react";
+import React from "react";
 import GoBackButton from "../common/GoBackButton";
 import CommitCardList from "./CommitCardList";
 import styles from "./repositoryDetail.module.css"
 
+import { useDispatch } from "react-redux";
+import { fetchCommits } from "../../redux";
 
-class RepositoryDetailPage extends Component {
+const RepositoryDetailPage = () => {
+    const repoId = window.location.pathname;
+    const dispatch = useDispatch();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            allCommits: null,
-            filteredCommits: null
-        }
+    dispatch(fetchCommits(repoId));
 
-        this.filterCommits = this.filterCommits.bind(this);
-    }
+    // const commits = useSelector(state => state.commit.commits);
+    // const loading = useSelector(state => state.commit.loading);
+    // const error = useSelector(state => state.commit.error);
+    // const filter = useSelector(state => state.commit.filter);
 
+    // filterCommits = (commitFilter) => {
+    //     let filteredCommits = this.state.allCommits
 
-    componentDidMount() {
-        const repoId = window.location.pathname;
+    //     filteredCommits = filteredCommits.filter((comm) => {
 
-        fetch('https://api.github.com' + repoId + '/commits?per_page=20')
-            .then(res => res.json())
-            .then(commits => {
-                this.setState({ allCommits: commits })
-                this.setState({ filteredCommits: commits }) //No filter by default
-            })
-    }
+    //         let commitFilterLowercase = commitFilter.toLowerCase();
+    //         let commAuthor = comm.commit.author.name.toLowerCase();
+    //         let commMessage = comm.commit.message.toLowerCase();
 
-    filterCommits = (commitFilter) => {
-        let filteredCommits = this.state.allCommits
+    //         return (commAuthor.indexOf(commitFilterLowercase) !== -1
+    //             || commMessage.indexOf(commitFilterLowercase) !== -1);
+    //     })
 
-        filteredCommits = filteredCommits.filter((comm) => {
+    //     this.setState({
+    //         filteredCommits
+    //     })
+    // }
 
-            let commitFilterLowercase = commitFilter.toLowerCase();
-            let commAuthor = comm.commit.author.name.toLowerCase();
-            let commMessage = comm.commit.message.toLowerCase();
+    return (
+        <div className={styles.body}>
+            <div>
+                <GoBackButton />
+                <h1>Repository Detail page: {window.location.pathname}</h1>
+            </div>
 
-            return (commAuthor.indexOf(commitFilterLowercase) !== -1
-                || commMessage.indexOf(commitFilterLowercase) !== -1);
-        })
+            <CommitCardList />
+        </div>
+    )
 
-        this.setState({
-            filteredCommits
-        })
-    }
-
-    render() {
-        const { filteredCommits } = this.state
-
-
-        return (
-            <React.Fragment>
-                <div>
-                    <GoBackButton />
-                    <h1 className={styles.h1}>Repository Detail page: {window.location.pathname}</h1>
-                </div>
-
-                <CommitCardList commits={filteredCommits} onChange={this.filterCommits} />
-            </React.Fragment>
-        )
-    }
 }
 
 export default RepositoryDetailPage;

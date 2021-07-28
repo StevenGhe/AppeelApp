@@ -1,17 +1,15 @@
 import logo from "../../images/appeel.png"
 import styles from "./navigationBar.module.css"
-import { Component } from "react";
 import { MenuItems } from "./MenuItems"
-import { Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'
 
-class NavigationBar extends Component {
-
-    render() {
-        return (
-            <Navbar bg="dark" variant="dark">
+const NavigationBar = () => {
+    return (
+        <Navbar bg="dark" expand="lg" variant="dark">
+            <Container>
                 <LinkContainer to="/">
-                    <Navbar.Brand>
+                    <Navbar.Brand className={styles.navBrand}>
                         <img width="110" height="35" className={"d-inline-block align-top"} src={logo} alt="Appeel logo" />{' '}
                         Assessment
                     </Navbar.Brand>
@@ -28,10 +26,11 @@ class NavigationBar extends Component {
                         })}
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar>
+            </Container>
+        </Navbar>
 
-        );
-    }
+    );
 }
+
 
 export default NavigationBar;

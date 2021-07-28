@@ -1,56 +1,60 @@
-import { CircularProgress, List } from "@material-ui/core";
-import React, { Component } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
-import CommitCard from "./CommitCard";
+import { CircularProgress, List } from "@material-ui/core";
 
+import CommitCard from "./CommitCard";
 import styles from './repositoryDetail.module.css'
 
-class CommitCardList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { filterValue: "" };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+import { useDispatch, useSelector } from "react-redux";
+import { setCommitFilter } from "../../redux/commit/commitActions";
 
+const CommitCardList = () => {
+    const dispatch = useDispatch();
+    const commits = useSelector(state => state.commit.commits);
+    const loading = useSelector(state => state.commit.loading);
+    const error = useSelector(state => state.commit.error);
+    const filter = useSelector(state => state.commit.filter);
 
-    handleChange(event) {
-        this.setState({ filterValue: event.target.value });
-        this.props.onChange(event.target.value);
-    }
+    let filteredCommits = JSON.parse(JSON.stringify(commits)); //Make copy to make sure no bugs occur
 
-    handleSubmit(event) {
-        event.preventDefault();
-    }
+    filteredCommits = filteredCommits.filter((comm) => {
+        const commitFilterLowercase = filter.toLowerCase();
+        const commAuthor = comm.commit.author.name.toLowerCase();
+        const commMessage = comm.commit.message.toLowerCase();
 
-    render() {
-        const { commits } = this.props
+        return (commAuthor.indexOf(commitFilterLowercase) !== -1
+            || commMessage.indexOf(commitFilterLowercase) !== -1);
+    })
 
-        return (
-            <React.Fragment>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Control
-                            type="text"
-                            className={styles.form}
-                            placeholder="Filter commits"
-                            onChange={this.handleChange} />
-                    </Form.Group>
+    return loading ? (
+        <div className={styles.progressLoader}>
+            <CircularProgress />
+        </div>
+    ) : error ? (
+        <h2> Error: {error} </h2>
+    ) : commits && commits.length > 0 ? (
+        <React.Fragment>
+            <Form>
+                <Form.Group>
+                    <Form.Control
+                        type="text"
+                        className={styles.form}
+                        placeholder="Filter commits on description &amp; name"
+                        onChange={(event) => dispatch(setCommitFilter(event.target.value))} />
+                </Form.Group>
+            </Form>
+            <List>
+                {(
+                    filteredCommits.map(commit => (
+                        <CommitCard key={commit.node_id} commit={commit} alignItems="flex-start" />
+                    ))
+                )}
+            </List >
+        </React.Fragment>
+    ) : (
+        <h2>No commits found.</h2>
+    )
 
-                </Form>
-
-                <List>
-                    {commits ? (
-                        commits.map(commit => (
-                            <CommitCard key={commit.node_id} commit={commit} alignItems="flex-start" />
-                        ))
-                    ) : (
-                        <CircularProgress />
-                    )}
-                </List >
-            </React.Fragment>
-        );
-    }
 }
 
 export default CommitCardList;

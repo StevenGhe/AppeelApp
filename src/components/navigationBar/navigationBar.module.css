@@ -6,3 +6,8 @@ img {
 .navlink {
     margin: auto;
 }
+
+.navBrand{
+    margin: auto;
+    padding-right: 40px;
+}

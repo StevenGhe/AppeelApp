@@ -2,21 +2,11 @@
 
 Mobile!
 
-Repository Cards:
-https://material-ui.com/
 
-http://getbem.com/introduction/
-
-Navigation:
-React Router for quick page switches
-React Bootstrap for styling
-React Router Bootstrap to enable React Router while using the React Bootstrap components (using LinkContainer)
 
 Demos and tutorials
 https://github.com/react-cosmos/create-react-app-example
 
-Personal Github Token
-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
 
 Lazy loading?
 https://github.com/dunky11/react-saas-template
