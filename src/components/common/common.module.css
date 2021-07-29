@@ -1,3 +1,7 @@
+.header {
+    margin-bottom: 20px;
+}
+
 .button {
     float: left;
 }
@@ -10,7 +14,6 @@
 .repoCard:hover {
     background: #efefef;
 }
-
 
 .star {
     margin: 15px 0 0 0;

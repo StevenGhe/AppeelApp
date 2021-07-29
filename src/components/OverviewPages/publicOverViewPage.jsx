@@ -3,6 +3,7 @@ import RepoCardList from "../common/RepoCardList";
 import styles from "./overviewPages.module.css"
 
 import { useSelector } from "react-redux";
+import Header from "../common/Header";
 
 const PublicOverviewPage = () => {
     const repos = useSelector(state => state.repository.publicRepos);
@@ -11,7 +12,7 @@ const PublicOverviewPage = () => {
 
     return (
         <div className={styles.body}>
-            <h1>Public Repositories Overview</h1>
+            <Header text={"Public Repositories Overview"} />
             <RepoCardList repos={repos} loading={loading} error={error} />
         </div>
     )

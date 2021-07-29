@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
 import { LinkContainer } from 'react-router-bootstrap';
 import { Avatar, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
-import styles from "./common.module.css"
 
 import { connect } from 'react-redux';
 import { setFavoriteRepo, delFavoriteRepo } from '../../redux';
+
+import styles from "./common.module.css"
 
 class RepoCard extends Component {
 

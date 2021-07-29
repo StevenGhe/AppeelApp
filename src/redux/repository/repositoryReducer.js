@@ -25,15 +25,15 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
             return {
                 ...state,
                 publicLoading: false,
-                publicRepos: action.payload,
-                publicError: ""
-            }
+                publicRepos: action.payload && action.payload.length > 0 ? action.payload : [],
+                publicError: ""         //Ideally you would test the structure of the incoming objects
+            };                          //I decided to just check if there was an array of objects (same with commits/personal repos)
         case act.FETCH_PUB_REPOS_FAILURE:
             return {
                 ...state,
                 publicLoading: false,
                 publicRepos: [],
-                publicError: action.payload
+                publicError: (action.payload && typeof action.payload === "string") ? action.payload : "Default Repository Reducer Error"
             }
 
         // PERSONAL REPOSITORIES
@@ -48,7 +48,7 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
             return {
                 ...state,
                 personalLoading: false,
-                personalRepos: action.payload,
+                personalRepos: action.payload && action.payload.length > 0 ? action.payload : [],
                 personalError: ""
             }
         case act.FETCH_PERS_REPOS_FAILURE:
@@ -56,10 +56,15 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 ...state,
                 personalLoading: false,
                 personalRepos: [],
-                personalError: action.payload
+                personalError: (action.payload && typeof action.payload === "string") ? action.payload : "Default Repository Reducer Error"
             }
 
         case act.SET_FAVORITE_REPO:
+            if (!(state.publicRepos && state.personalRepos
+                && action.payload && (typeof action.payload) === "string")) {
+                return state;
+            }
+
             var tempPublicRepos = JSON.parse(JSON.stringify(state.publicRepos));
             for (var i in tempPublicRepos) {
 
@@ -83,7 +88,6 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                     }
                 }
             }
-
             return state;
 
         case act.DEL_FAVORITE_REPO:
@@ -110,10 +114,9 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                     }
                 }
             }
-
             return state;
+
         default:
-            console.log("Default repoReducer")
             return state;
     }
 }
