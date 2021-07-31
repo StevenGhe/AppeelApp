@@ -50,6 +50,18 @@ const stateWithFullNameNodeIdsAndFavorite = {
     personalError: ""
 }
 
+const testRepo = {
+    full_name: "RepoFullName",
+    name: "RepoName",
+    description: "RepoDescription",
+    favorited: false,
+    owner: {
+        login: "RepoOwnerLogin",
+        avatar_url: "RepoOwnerAvatarUrl"
+    }
+}
+
+
 describe("Repository Reducer", () => {
     it("ComRepositorymit Reducer has a default state", () => {
         expect(repositoryReducer(undefined, { type: "Default" })).toEqual({
@@ -80,10 +92,10 @@ describe("Repository Reducer", () => {
     it("Repository Reducer sets personalLoading to false and loads repos on FETCH_PERS_REPOS_SUCCESS with correct repos", () => {
         expect(repositoryReducer(statePersLoadingTrue, {
             type: FETCH_PERS_REPOS_SUCCESS,
-            payload: ["Repo1", "Repo2"]
+            payload: [testRepo]
         })).toMatchObject({
             personalLoading: false,
-            personalRepos: ["Repo1", "Repo2"],
+            personalRepos: [testRepo],
             personalError: ""
         })
     })
@@ -101,10 +113,10 @@ describe("Repository Reducer", () => {
     it("Repository Reducer sets publicLoading to false and loads repos on FETCH_PUB_REPOS_SUCCESS with correct repos", () => {
         expect(repositoryReducer(statePublicLoadingTrue, {
             type: FETCH_PUB_REPOS_SUCCESS,
-            payload: ["Repo1", "Repo2"]
+            payload: [testRepo]
         })).toMatchObject({
             publicLoading: false,
-            publicRepos: ["Repo1", "Repo2"],
+            publicRepos: [testRepo],
             publicError: ""
         })
     })

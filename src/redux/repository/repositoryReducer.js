@@ -22,12 +22,19 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 publicError: ""
             }
         case act.FETCH_PUB_REPOS_SUCCESS:
+            var checkedPublicRepos = [];
+
+            if (action.payload && action.payload.length > 0) {
+                checkedPublicRepos = action.payload.filter(repo => {
+                    return repo && repo.full_name && repo.name && repo.description && repo.owner && repo.owner.login
+                })
+            }
             return {
                 ...state,
                 publicLoading: false,
-                publicRepos: action.payload && action.payload.length > 0 ? action.payload : [],
-                publicError: ""         //Ideally you would test the structure of the incoming objects
-            };                          //I decided to just check if there was an array of objects (same with commits/personal repos)
+                publicRepos: checkedPublicRepos,
+                publicError: "" 
+            };
         case act.FETCH_PUB_REPOS_FAILURE:
             return {
                 ...state,
@@ -45,10 +52,18 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 personalError: ""
             }
         case act.FETCH_PERS_REPOS_SUCCESS:
+            var checkedPersRepos = [];
+
+            if (action.payload && action.payload.length > 0) {
+                checkedPersRepos = action.payload.filter(repo => {
+                    return repo && repo.full_name && repo.name && repo.description && repo.owner && repo.owner.login
+                })
+            }
+
             return {
                 ...state,
                 personalLoading: false,
-                personalRepos: action.payload && action.payload.length > 0 ? action.payload : [],
+                personalRepos: checkedPersRepos,
                 personalError: ""
             }
         case act.FETCH_PERS_REPOS_FAILURE:

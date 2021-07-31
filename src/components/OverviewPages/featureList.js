@@ -16,6 +16,18 @@ export const featureList = [
     }, {
         text: "Favorite repositories "
     }, {
-        text: ""
+        text: "Testing (cmd: npm test) using jest/babel. Some basic component unit tests (src/components/common.__tests__), React Router, Redux reducer tests and TODO: Redux integration tests"
+    }, {
+        text: "TODO"
+    }
+];
+
+export const es6List = [
+    {
+        text: "ES6 imports"
+    }, {
+        text: "ES6 Arrow functions"
+    }, {
+        text: "TODO"
     }
 ];

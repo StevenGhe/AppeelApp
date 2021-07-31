@@ -8,6 +8,18 @@ const stateLoadingTrue = {
     filter: ""
 }
 
+const testCommit = {
+    commit: {
+        message: "commitMessage",
+        author: {
+            name: "commitAuthorMessage"
+        }
+    },
+    author: {
+        avatar_url: "authorAvatarUrl"
+    }
+}
+
 describe("Commit Reducer", () => {
     it("Commit Reducer has a default state", () => {
         expect(commitReducer(undefined, { type: "Default" })).toEqual({
@@ -27,10 +39,10 @@ describe("Commit Reducer", () => {
     it("Commit Reducer sets loading to false and loads commits on FETCH_COMMITS_SUCCESS with correct commits", () => {
         expect(commitReducer(stateLoadingTrue, {
             type: FETCH_COMMITS_SUCCESS,
-            payload: ["Commit1", "Commit2"]
+            payload: [testCommit]
         })).toMatchObject({
             loading: false,
-            commits: ["Commit1", "Commit2"],
+            commits: [testCommit],
             error: ""
         })
     })

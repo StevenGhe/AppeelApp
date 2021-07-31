@@ -1,14 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
 import NavigationBar from "./components/navigationBar/NavigationBar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { fetchPersonalRepos, fetchPublicRepos } from "./redux";
 
 import RepositoryDetailPage from "./components/repositoryDetail/RepositoryDetailPage";
-import PublicOverviewPage from "./components/OverviewPages/publicOverViewPage";
-import PersonalOverviewPage from "./components/OverviewPages/personalOverviewPage";
+import PublicOverviewPage from "./components/OverviewPages/PublicOverViewPage";
+import PersonalOverviewPage from "./components/OverviewPages/PersonalOverviewPage";
 import HomePage from "./components/OverviewPages/HomePage";
+import NotFoundPage from "./components/OverviewPages/NotFoundPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,21 +18,16 @@ const App = () => {
   dispatch(fetchPersonalRepos());
 
   return (
-    <Router>
+    <Fragment>
       <NavigationBar />
       <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route path="/public">
-          <PublicOverviewPage />
-        </Route>
-        <Route path="/personal" >
-          <PersonalOverviewPage />
-        </Route>
-        <Route path="/repos" component={RepositoryDetailPage} />
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/public" component={PublicOverviewPage} />
+        <Route exact path="/personal" component={PersonalOverviewPage} />
+        <Route path="/repos/:repoId" component={RepositoryDetailPage} />
+        <Route component={NotFoundPage} />
       </Switch>
-    </Router>
+    </Fragment>
   );
 }
 

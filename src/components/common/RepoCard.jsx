@@ -21,12 +21,14 @@ class RepoCard extends Component {
   }
 
   render() {
-    const repoId = this.props.repo.full_name;
-    const repoName = this.props.repo.name;
-    const repoDescription = this.props.repo.description;
-    const ownerName = this.props.repo.owner.login;
-    const ownerProfilePicture = this.props.repo.owner.avatar_url;
-    const favorited = this.props.repo.favorited;
+
+
+    const repoId = this.props.repo ? this.props.repo.full_name : "Error: No repository";
+    const repoName = this.props.repo ? this.props.repo.name : "Error: No repository";
+    const repoDescription = this.props.repo ? this.props.repo.description : "Error: No repository";
+    const favorited = this.props.repo ? this.props.repo.favorited : false;
+    const ownerName = this.props.repo ? (this.props.repo.owner ? this.props.repo.owner.login : "Error: No Repository Owner") : "Error: No repository";
+    const ownerProfilePicture = this.props.repo ? (this.props.repo.owner ? this.props.repo.owner.avatar_url : "Error: No Repository Owner") : "Error: No repository";
 
     return (
       <LinkContainer to={"/repos/" + repoId}>

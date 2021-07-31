@@ -14,12 +14,22 @@ const commitReducer = (state = initialCommitState, action) => {
             ...state,
             loading: true
         };
-        case act.FETCH_COMMITS_SUCCESS: return {
-            ...state,
-            loading: false,
-            commits: action.payload && action.payload.length > 0 ? action.payload : [],
-            error: ""
-        };
+        case act.FETCH_COMMITS_SUCCESS:
+
+            var checkedCommits = [];
+
+            if (action.payload && action.payload.length > 0) {
+                checkedCommits = action.payload.filter(c => {
+                    return c && c.commit && c.commit.message && c.commit.author && c.commit.author.name && c.author
+                })
+            }
+
+            return {
+                ...state,
+                loading: false,
+                commits: checkedCommits,
+                error: ""
+            };
         case act.FETCH_COMMITS_FAILURE: return {
             ...state,
             loading: false,

@@ -1,15 +1,17 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import RepoCard from './RepoCard';
+import RepoCard from './RepoCard.jsx';
 import { CircularProgress } from '@material-ui/core';
 
 const RepoCardList = props => {
-    const { repos, loading, error } = props
+    const repos = props.repos ? props.repos : [];
+    const error = props.error;
+    const loading = props.loading;
 
     return loading ? (
         <CircularProgress />
     ) : error ? (
-        <h2>Error: {error}</h2>
+        <h2>{error}</h2>
     ) : (repos && repos.length > 0) ? (
         <List>
             {(
