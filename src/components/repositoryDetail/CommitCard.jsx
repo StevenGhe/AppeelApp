@@ -2,10 +2,9 @@ import { Avatar, ListItem, ListItemAvatar, ListItemText } from "@material-ui/cor
 import React from "react";
 
 const CommitCard = (props) => {
-    // const commitName = props.commit.commit.name;
-    const commitMessage = props.commit.commit.message;
-    const commitAuthor = props.commit.commit.author.name;
-    const ownerProfilePicture = props.commit.author.avatar_url;
+    const commitMessage = props.commit && props.commit.commit ? props.commit.commit.message : "No commit found";
+    const commitAuthor = props.commit && props.commit.commit ? props.commit.commit.author.name : "No commit found";
+    const ownerProfilePicture = props.commit && props.commit.author ? props.commit.author.avatar_url : "No commit found";
 
     return (
         <ListItem alignItems="flex-start">
@@ -18,7 +17,7 @@ const CommitCard = (props) => {
                     <React.Fragment>
                         {commitMessage}
                     </React.Fragment>
-                }/>
+                } />
         </ListItem>
     );
 }

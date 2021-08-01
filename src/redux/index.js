@@ -1,4 +1,4 @@
-//Exports all actions, makes it easier for components to dispatch actions 
+//Exports all actions, makes it easier for components import and dispatch actions 
 
 export { fetchPublicRepos } from "./repository/repositoryActions";
 export { fetchPersonalRepos } from "./repository/repositoryActions";

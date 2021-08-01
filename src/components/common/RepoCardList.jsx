@@ -5,8 +5,7 @@ import { CircularProgress } from '@material-ui/core';
 
 const RepoCardList = props => {
     const repos = props.repos ? props.repos : [];
-    const error = props.error;
-    const loading = props.loading;
+    const { error, loading } = props;
 
     return loading ? (
         <CircularProgress />

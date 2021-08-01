@@ -22,7 +22,7 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 publicError: ""
             }
         case act.FETCH_PUB_REPOS_SUCCESS:
-            var checkedPublicRepos = [];
+            let checkedPublicRepos = [];
 
             if (action.payload && action.payload.length > 0) {
                 checkedPublicRepos = action.payload.filter(repo => {
@@ -33,7 +33,7 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 ...state,
                 publicLoading: false,
                 publicRepos: checkedPublicRepos,
-                publicError: "" 
+                publicError: ""
             };
         case act.FETCH_PUB_REPOS_FAILURE:
             return {
@@ -52,7 +52,7 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 personalError: ""
             }
         case act.FETCH_PERS_REPOS_SUCCESS:
-            var checkedPersRepos = [];
+            let checkedPersRepos = [];
 
             if (action.payload && action.payload.length > 0) {
                 checkedPersRepos = action.payload.filter(repo => {
@@ -74,14 +74,15 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 personalError: (action.payload && typeof action.payload === "string") ? action.payload : "Default Repository Reducer Error"
             }
 
+        //SET FAVORITE
         case act.SET_FAVORITE_REPO:
             if (!(state.publicRepos && state.personalRepos
                 && action.payload && (typeof action.payload) === "string")) {
                 return state;
             }
 
-            var tempPublicRepos = JSON.parse(JSON.stringify(state.publicRepos));
-            for (var i in tempPublicRepos) {
+            let tempPublicRepos = JSON.parse(JSON.stringify(state.publicRepos));
+            for (let i in tempPublicRepos) {
 
                 if (tempPublicRepos[i].full_name === action.payload) {
                     tempPublicRepos[i].favorited = true;
@@ -92,8 +93,8 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 }
             }
 
-            var tempPersRepos = JSON.parse(JSON.stringify(state.personalRepos));
-            for (var i2 in tempPersRepos) {
+            let tempPersRepos = JSON.parse(JSON.stringify(state.personalRepos));
+            for (let i2 in tempPersRepos) {
 
                 if (tempPersRepos[i2].full_name === action.payload) {
                     tempPersRepos[i2].favorited = true;
@@ -106,8 +107,8 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
             return state;
 
         case act.DEL_FAVORITE_REPO:
-            var tempPublicRepo = JSON.parse(JSON.stringify(state.publicRepos));
-            for (var i3 in tempPublicRepo) {
+            let tempPublicRepo = JSON.parse(JSON.stringify(state.publicRepos));
+            for (let i3 in tempPublicRepo) {
 
                 if (tempPublicRepo[i3].full_name === action.payload) {
                     tempPublicRepo[i3].favorited = false;
@@ -118,8 +119,8 @@ const repositoryReducer = (state = initialRepositoryState, action) => {
                 }
             }
 
-            var tempPersRepo = JSON.parse(JSON.stringify(state.personalRepos));
-            for (var i4 in tempPersRepo) {
+            let tempPersRepo = JSON.parse(JSON.stringify(state.personalRepos));
+            for (let i4 in tempPersRepo) {
 
                 if (tempPersRepo[i4].full_name === action.payload) {
                     tempPersRepo[i4].favorited = false;

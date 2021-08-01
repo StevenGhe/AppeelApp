@@ -11,5 +11,4 @@ const GoBackButton = props => {
     )
 }
 
-//withRouter needed for props.history.goBack()
 export default withRouter(GoBackButton);

@@ -21,8 +21,6 @@ class RepoCard extends Component {
   }
 
   render() {
-
-
     const repoId = this.props.repo ? this.props.repo.full_name : "Error: No repository";
     const repoName = this.props.repo ? this.props.repo.name : "Error: No repository";
     const repoDescription = this.props.repo ? this.props.repo.description : "Error: No repository";

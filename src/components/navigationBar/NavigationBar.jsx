@@ -17,10 +17,10 @@ const NavigationBar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {MenuItems.map(item => {
+                        {MenuItems.map((item, index) => {
                             return (
-                                <LinkContainer exact to={item.url}>
-                                    <Nav.Link key={item.title} className={styles.navlink}>{item.title}</Nav.Link>
+                                <LinkContainer key={index} exact to={item.url}>
+                                    <Nav.Link key={index} className={styles.navlink}>{item.title}</Nav.Link>
                                 </LinkContainer>
                             );
                         })}
@@ -28,7 +28,6 @@ const NavigationBar = () => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-
     );
 }
 
